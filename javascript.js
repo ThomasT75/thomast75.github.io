@@ -134,7 +134,7 @@ function html_add_to(mission_with_bonus_map, saveNow) {
     if (saveNow) {
       saveNow()
     }
-    console.log(total, mission_with_bonus_map, "$#")
+
   })
   root.appendChild(input)
 }
@@ -151,7 +151,7 @@ function gen_table(id, titleHeader, topHeader, leftHeader, func) {
     var cell = row.insertCell(i+1)
     cell.innerHTML = v
   })
-  
+
   leftHeader.forEach(function (lh, y) {
     var row = table.insertRow(y+1)
     var cell = row.insertCell(0)
@@ -183,7 +183,8 @@ function _update() {
     var b = document.getElementById("event-mission-reset")
     b.addEventListener("click", function() {
       if (confirm("Delete current save?\nThere is no undo!")) {
-        resetSave()
+        resetSave();
+        window.location.reload();
       }
     })
     var b = document.getElementById("event-mission-recalc")
@@ -246,7 +247,7 @@ function calculate_bonuses(mission_map, require_map) {
     bonus_map.set(k, m)
   })
 
-  console.log(bonus_map)
+
   var mission_with_bonus_map = new Map();
 
   mission_map.forEach(function (v, k) {
@@ -261,7 +262,7 @@ function calculate_bonuses(mission_map, require_map) {
     })
     mission_with_bonus_map.set(k, m)
   })
-  console.log(mission_with_bonus_map)
+
 
   return [bonus_map, mission_with_bonus_map]
 }
@@ -271,7 +272,7 @@ function calculate_result(mission_map, bonus_map, mission_with_bonus_map, requir
   var owned = require_map.get("owned") 
   var pct = require_map.get("bonus")
 
-  console.log(mission_map, require_map, skip_map)
+
 
   var needed = new Array(
     goal[0]-owned[0],
@@ -291,9 +292,9 @@ function calculate_result(mission_map, bonus_map, mission_with_bonus_map, requir
     ));
   });
 
-  console.log(per_ap_missions)
 
-  console.log(needed)
+
+
 
   var result = new Array();
   for (let i = 0; i < 12; i++) {
@@ -354,7 +355,7 @@ function calculate_result(mission_map, bonus_map, mission_with_bonus_map, requir
     r.innerHTML += `${m+1} = ${t} . . . [${mission_map.get(m+1)}]+[${bonus_map.get(m+1)}] <br>`
   })
 }
-    
+
 function newSave(strSave) {
   var m = new Map();
   var nextSave = function() {
@@ -443,7 +444,7 @@ function _saveSave(save) {
     })
     str += ":"
   })
-  console.log("Saving...");
+
   localStorage.setItem("user_event_calc_data", str)
 }
 
