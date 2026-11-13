@@ -54,8 +54,9 @@ function html_require(require_map) {
     if (lh == "Bonus %") {
       type = "bonus"
       input.id = "rb"+x
-      value = require_map.get(type)[x] * 100
+      value = Number((require_map.get(type)[x] * 100).toFixed(2))
     }
+
     input.placeholder = 0
     if (value != 0) {
       input.value = value
@@ -82,7 +83,7 @@ function html_skip(skip_map) {
   });
 }
 
-function html_add_to(mission_with_bonus_map) {
+function html_add_to(mission_with_bonus_map, saveNow) {
   var tHeader = new Array(1,2,3,4,5,6,7,8,9,10,11,12);
   var lHeader = new Array("Done");
   var missions = new Array();
@@ -130,6 +131,9 @@ function html_add_to(mission_with_bonus_map) {
       }
       field.dispatchEvent(new Event('input', {bubbles: true}))
     }
+    if (saveNow) {
+      saveNow()
+    }
     console.log(total, mission_with_bonus_map, "$#")
   })
   root.appendChild(input)
@@ -173,7 +177,9 @@ function _update() {
     html_missions(mission_map)
     html_require(require_map)
     html_skip(skip_map)
-    html_add_to(mission_with_bonus_map)
+    html_add_to(mission_with_bonus_map, function () {
+      _saveSave(save);
+    })
     var b = document.getElementById("event-mission-reset")
     b.addEventListener("click", function() {
       if (confirm("Delete current save?\nThere is no undo!")) {
@@ -189,6 +195,7 @@ function _update() {
   });
   return function (field, t, m, i) {
     if (t == "calc") {
+      [bonus_map, mission_with_bonus_map] = calculate_bonuses(mission_map, require_map)
       calc_result(mission_map, bonus_map, mission_with_bonus_map, require_map, skip_map)
       return
     }
@@ -216,6 +223,7 @@ function _update() {
       skip_map[m] = field.checked
     }
 
+    [bonus_map, mission_with_bonus_map] = calculate_bonuses(mission_map, require_map)
     calc_result(mission_map, bonus_map, mission_with_bonus_map, require_map, skip_map)
 
     saveSave(save)
