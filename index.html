@@ -3,17 +3,55 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BA Tools</title>
-    <link href="style.css" rel="stylesheet">
-    <script src="javascript.js"></script>
+    <meta name="theme-color" content="#111318">
+    <title>Event Planner for Blue Archive, fan-made tool</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="javascript.js" defer></script>
   </head>
   <body>
-    <button id="event-mission-reset">Reset</button>
-    <button id="event-mission-recalc">Calculate</button>
-    <div id="event-mission-calc"></div>
-    <div id="event-require"></div>
-    <div id="event-skip"></div>
-    <div id="event-add-to"></div>
-    <div id="event-results"></div>
+    <main>
+      <header class="page-header">
+        <h1>Blue Archive Event Planner</h1>
+        <p>Plan your AP needs and goals for any event in Blue Archive using this fan-made tool.</p>
+      </header>
+
+      <section class="toolbar">
+        <button id="event-mission-reset" class="button button-secondary" type="button">
+          Reset
+        </button>
+        <button id="event-mission-recalc" class="button button-primary" type="button">
+          Calculate
+        </button>
+      </section>
+
+      <section class="panel">
+        <h2>Missions</h2>
+        <p class="panel-hint">Enter the base value you get from each mission.</p>
+        <div id="event-mission-calc" class="table-scroll"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Requirements</h2>
+        <p class="panel-hint">Enter your goals, current inventory, and bonus percentages.</p>
+        <div id="event-require" class="table-scroll"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Skip missions</h2>
+        <p class="panel-hint">Select missions you don’t want included in the calculation.</p>
+        <div id="event-skip" class="table-scroll"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Add completed rewards</h2>
+        <p class="panel-hint">Enter completed runs or item amounts, then add them to Owned.</p>
+        <div id="event-add-to" class="table-scroll"></div>
+      </section>
+
+      <section class="panel results-panel">
+        <h2>Results</h2>
+        <div id="event-results">Enter your values, then select Calculate.</div>
+      </section>
+    </main>
   </body>
 </html>
